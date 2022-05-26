@@ -5,16 +5,26 @@ FROM ubuntu:20.04 as vscode-env
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Install the actual VSCode to download configs and extensions
-RUN apt-get update && \
-	apt-get install -y curl && \
-	curl -o vscode-amd64.deb -L https://vscode-update.azurewebsites.net/latest/linux-deb-x64/stable && \
-	dpkg -i vscode-amd64.deb || true && \
-	apt-get install -y -f && \
-	# VSCode missing deps
-	apt-get install -y libx11-xcb1 libasound2 && \
-	rm -f vscode-amd64.deb && \
-	# CLI json parser
-	apt-get install -y jq
+#RUN apt-get update && \
+#	apt-get install -y curl && \
+#	curl -o vscode-amd64.deb -L https://vscode-update.azurewebsites.net/latest/linux-deb-x64/stable && \
+#	dpkg -i vscode-amd64.deb || true && \
+#	apt-get install -y -f && \
+#	# VSCode missing deps
+#	apt-get install -y libx11-xcb1 libasound2 && \
+#	rm -f vscode-amd64.deb && \
+#	# CLI json parser
+#	apt-get install -y jq
+
+RUN apt install -y \
+	software-properties-common \
+	apt-transport-https \
+	wget
+RUN wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+RUN add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+RUN apt install -y \
+	code \
+	jq
 
 COPY scripts /root/scripts
 COPY sync.gist /root/sync.gist
