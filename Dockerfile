@@ -16,6 +16,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 #	# CLI json parser
 #	apt-get install -y jq
 
+RUN apt-get update
 RUN apt install -y \
 	software-properties-common \
 	apt-transport-https \
