@@ -17,13 +17,13 @@ ARG DEBIAN_FRONTEND=noninteractive
 #	apt-get install -y jq
 
 RUN apt-get update
-RUN apt install -y \
+RUN apt-get install -y \
 	software-properties-common \
 	apt-transport-https \
 	wget
-RUN wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+RUN wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | apt-key add -
 RUN add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-RUN apt install -y \
+RUN apt-get install -y \
 	code \
 	jq
 
