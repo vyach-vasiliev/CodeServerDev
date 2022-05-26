@@ -18,13 +18,13 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update
 RUN apt-get install -y \
-	apt-utils software-properties-common apt-transport-https wget \
-	libx11-xcb1 libasound2
+	curl apt-utils software-properties-common apt-transport-https wget \
+	libx11-xcb1 libasound2 \
+	jq
+	
 RUN wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | apt-key add -
 RUN add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-RUN apt-get install -y \
-	code \
-	jq
+RUN apt-get install -y code
 
 COPY scripts /root/scripts
 COPY sync.gist /root/sync.gist
