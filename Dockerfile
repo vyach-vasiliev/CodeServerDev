@@ -30,11 +30,11 @@ COPY scripts /root/scripts
 COPY sync.gist /root/sync.gist
 
 # This gets user config from gist, parse it and install exts with VSCode
-RUN code -v --user-data-dir /root/.config/Code && \
-	cd /root/scripts && \
-	sh get-config-from-gist.sh && \
-	sh parse-extension-list.sh && \
-	sh install-vscode-extensions.sh ../extensions.list
+RUN code -v --user-data-dir /root/.config/Code
+RUN cd /root/scripts
+RUN sh get-config-from-gist.sh
+RUN sh parse-extension-list.sh
+RUN sh install-vscode-extensions.sh ../extensions.list
 
 # The production image for code-server
 FROM ubuntu:20.04
